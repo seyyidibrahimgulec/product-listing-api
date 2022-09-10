@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    container_name: productlistingdb
+    image: postgres
+    hostname: db
+    environment:
+      POSTGRES_DB: dev
+      POSTGRES_USER: postgres-dev
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - 5432:5432
+  app:
+    container_name: productlistingapp
+    image: seyyidibrahimgulec/productlistingapp:v1
+    hostname: productlistingapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    links:
+      - db
