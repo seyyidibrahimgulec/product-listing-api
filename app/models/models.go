@@ -12,39 +12,24 @@ type Product struct {
 	Name            string            `json:"name"`
 	Price           float64           `json:"price"`
 	Description     string            `json:"description"`
-	CurrencyID      int               `json:"currency_id"`
-	Currency        CurrencyType      `json:"currency"`
-	SellerID        int               `json:"seller_id"`
-	Seller          Seller            `json:"seller"`
+	Currency        string            `json:"currency"`
+	SellerID        string            `json:"seller_id"`
 	InStock         bool              `json:"in_stock"`
 	DeliveryOptions []DeliveryOptions `gorm:"many2many:product_delivery_options;"json:"delivery_options"`
 }
 
-type Seller struct {
-	gorm.Model
-	SellerID string `gorm:"unique"json:"seller_id"`
-}
-
 type DeliveryOptions struct {
 	gorm.Model
-	Name       string       `json:"name"`
-	Price      float64      `json:"price"`
-	CurrencyID int          `json:"currency_id"`
-	Currency   CurrencyType `json:"currency"`
-	Product    []Product    `gorm:"many2many:product_delivery_options;"json:"products"`
-}
-
-type CurrencyType struct {
-	gorm.Model
-	Code string `gorm:"unique"json:"code"`
+	Name     string    `json:"name"`
+	Price    float64   `json:"price"`
+	Currency string    `json:"currency"`
+	Product  []Product `gorm:"many2many:product_delivery_options;"json:"products"`
 }
 
 func init() {
 	db = config.ConnectDB()
 	db.AutoMigrate(&Product{})
-	db.AutoMigrate(&Seller{})
 	db.AutoMigrate(&DeliveryOptions{})
-	db.AutoMigrate(&CurrencyType{})
 }
 
 func GetAllProducts() []Product {
