@@ -10,6 +10,10 @@ import (
 	"github.com/seyyidibrahimgulec/product-listing/app/models"
 )
 
+const (
+	PAGE_SIZE = 5
+)
+
 func logError(err error) {
 	if err != nil {
 		log.Println(err)
@@ -42,7 +46,16 @@ func createJSONResponse(w http.ResponseWriter, status_code int, response []byte)
 }
 
 func listProducts(w http.ResponseWriter, r *http.Request) {
-	products := models.GetAllProducts()
+	query_params := r.URL.Query()
+	offset, limit := 0, PAGE_SIZE
+	if page, ok := query_params["page"]; ok {
+		page_num, _ := strconv.Atoi(page[0])
+		if page_num > 0 {
+			offset = (page_num - 1) * PAGE_SIZE
+			limit = offset + PAGE_SIZE
+		}
+	}
+	products := models.GetAllProducts(offset, limit)
 	res, err := json.Marshal(products)
 	logError(err)
 	createJSONResponse(w, http.StatusOK, res)
