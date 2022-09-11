@@ -20,7 +20,7 @@ func logError(err error) {
 	}
 }
 
-func getProductRespondError(w http.ResponseWriter, r *http.Request) *models.Product {
+func getProductOrRespondError(w http.ResponseWriter, r *http.Request) *models.Product {
 	vars := mux.Vars(r)
 	productId := vars["productId"]
 	id, err := strconv.ParseInt(productId, 0, 0)
@@ -91,7 +91,7 @@ func createProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func retrieveProduct(w http.ResponseWriter, r *http.Request) {
-	product := getProductRespondError(w, r)
+	product := getProductOrRespondError(w, r)
 	if product == nil {
 		return
 	}
@@ -105,7 +105,7 @@ func retrieveProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateProduct(w http.ResponseWriter, r *http.Request) {
-	product := getProductRespondError(w, r)
+	product := getProductOrRespondError(w, r)
 	if product == nil {
 		return
 	}
