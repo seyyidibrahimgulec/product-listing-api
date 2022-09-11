@@ -33,9 +33,9 @@ func init() {
 }
 
 func GetAllProducts() []Product {
-	var Products []Product
-	db.Find(&Products)
-	return Products
+	var products []Product
+	db.Preload("DeliveryOptions").Find(&products)
+	return products
 }
 
 func (p *Product) CreateProduct() (*Product, error) {
@@ -47,7 +47,7 @@ func (p *Product) CreateProduct() (*Product, error) {
 
 func GetProductById(id int64) (*Product, error) {
 	var product Product
-	if err := db.Where("ID=?", id).First(&product).Error; err != nil {
+	if err := db.Preload("DeliveryOptions").Where("ID=?", id).First(&product).Error; err != nil {
 		return nil, err
 	}
 	return &product, nil
