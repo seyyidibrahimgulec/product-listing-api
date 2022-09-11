@@ -45,3 +45,20 @@ func (p *Product) CreateProduct() (*Product, error) {
 	db.Create(&p)
 	return p, nil
 }
+
+func GetProductById(id int64) (*Product, error) {
+	var product Product
+	if err := db.Where("ID=?", id).First(&product).Error; err != nil {
+		return nil, err
+	}
+
+	return &product, nil
+}
+
+func (p *Product) UpdateProduct() (*Product, error) {
+	if err := db.Save(&p).Error; err != nil {
+		return nil, err
+	}
+	db.Save(&p)
+	return p, nil
+}
