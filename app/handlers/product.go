@@ -55,7 +55,15 @@ func listProducts(w http.ResponseWriter, r *http.Request) {
 			limit = offset + PAGE_SIZE
 		}
 	}
-	products := models.GetAllProducts(offset, limit)
+	order_by := ""
+	if order_by_params, ok := query_params["order_by"]; ok {
+		if order_by_params[0] == "-price" {
+			order_by = "price DESC"
+		} else if order_by_params[0] == "price" {
+			order_by = "price ASC"
+		}
+	}
+	products := models.GetAllProducts(offset, limit, order_by)
 	res, err := json.Marshal(products)
 	logError(err)
 	createJSONResponse(w, http.StatusOK, res)

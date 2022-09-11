@@ -32,9 +32,9 @@ func init() {
 	db.AutoMigrate(&DeliveryOptions{})
 }
 
-func GetAllProducts(offset, limit int) []Product {
+func GetAllProducts(offset, limit int, order_by string) []Product {
 	var products []Product
-	db.Preload("DeliveryOptions").Offset(offset).Limit(limit).Find(&products)
+	db.Preload("DeliveryOptions").Order(order_by).Offset(offset).Limit(limit).Find(&products)
 	return products
 }
 
