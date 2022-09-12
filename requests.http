@@ -1,8 +1,8 @@
 # List products -- Query Params: page, order_by={-price, price}
-GET http://localhost:8080/product/
+GET http://167.71.35.125:8080/product/
 
 # Create product
-POST http://localhost:8080/product/
+POST http://167.71.35.125:8080/product/
 {
   "name": "Bose Soundbar 300 TV Ses Sistemi, Siyah",
   "price": 10.099,
@@ -25,10 +25,10 @@ POST http://localhost:8080/product/
 }
 
 # Get product by id
-GET http://localhost:8080/product/1/
+GET http://167.71.35.125:8080/product/1/
 
 # Update product
-PUT http://localhost:8080/product/1/
+PUT http://167.71.35.125:8080/product/1/
 {
   "name": "Bose Soundbar 300 TV Ses Sistemi, Beyaz",
   "delivery_options": [
