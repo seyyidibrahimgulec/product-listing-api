@@ -1,6 +1,7 @@
 #+TITLE: Product Listing API
 * About
-- Made with [[https://go.dev/][Golang]]([[https://github.com/gorilla/mux][gorilla/mux]], [[https://github.com/go-gorm/gorm][gorm]])
+- Made with [[https://go.dev/][Golang]]([[https://github.com/gorilla/mux][gorilla/mux]], [[https://github.com/go-gorm/gorm][gorm]]), [[https://www.postgresql.org/][PostgreSQL]], [[https://www.docker.com/][Docker]]
+- Click [[http://167.71.35.125:8080/product/][here]] to go to the demo application.
 * Requirements
 - [[https://www.docker.com/][Docker]]
 * Installation
