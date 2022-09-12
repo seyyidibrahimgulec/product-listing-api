@@ -43,6 +43,13 @@ func (d *DeliveryOption) getOrCreateDeliveryOption() (*DeliveryOption, error) {
 	return &deliveryOption, nil
 }
 
+func (p *Product) appendDeliveryOptions(delivery_options []*DeliveryOption) {
+	for _, do := range delivery_options {
+		delivery_option, _ := do.getOrCreateDeliveryOption()
+		db.Model(&p).Association("DeliveryOptions").Append(delivery_option)
+	}
+}
+
 func GetAllProducts(offset, limit int, order_by string) []Product {
 	var products []Product
 	db.Preload("DeliveryOptions").Order(order_by).Offset(offset).Limit(limit).Find(&products)
@@ -62,13 +69,7 @@ func (p *Product) CreateProduct() (*Product, error) {
 		return nil, err
 	}
 
-	for _, do := range delivery_options {
-		delivery_option, err := do.getOrCreateDeliveryOption()
-		if err != nil {
-			return nil, err
-		}
-		db.Model(&p).Association("DeliveryOptions").Append(delivery_option)
-	}
+	p.appendDeliveryOptions(delivery_options)
 
 	return p, nil
 }
@@ -97,13 +98,7 @@ func (p *Product) UpdateProduct() (*Product, error) {
 
 	if delivery_options != nil {
 		db.Model(&p).Association("DeliveryOptions").Clear()
-		for _, do := range delivery_options {
-			delivery_option, err := do.getOrCreateDeliveryOption()
-			if err != nil {
-				return nil, err
-			}
-			db.Model(&p).Association("DeliveryOptions").Append(delivery_option)
-		}
+		p.appendDeliveryOptions(delivery_options)
 	}
 
 	return p, nil
