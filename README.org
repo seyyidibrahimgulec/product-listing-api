@@ -1,1 +1,283 @@
 #+TITLE: Product Listing API
+* About
+- Made with [[https://go.dev/][Golang]]([[https://github.com/gorilla/mux][gorilla/mux]], [[https://github.com/go-gorm/gorm][gorm]])
+* Requirements
+- [[https://www.docker.com/][Docker]]
+* Installation
+#+begin_src shell
+  # Clone this repository
+  git clone https://github.com/seyyidibrahimgulec/product-listing-api
+
+  # Go to project directory
+  cd product-listing-api
+
+  # Run docker compose up command
+  docker-compose up --build
+#+end_src
+
+* Endpoints
+** List products
+- ~path_to_url/product/?page={number}&order_by={price, -price}~
+#+begin_src shell
+  curl --request GET http://167.71.35.125:8080/product/
+#+end_src
+#+begin_src json
+  [
+    {
+      "ID": 1,
+      "CreatedAt": "2022-09-12T11:24:35.524954Z",
+      "UpdatedAt": "2022-09-12T11:24:35.5403Z",
+      "DeletedAt": null,
+      "name": "Bose Soundbar 300 TV Ses Sistemi, Siyah",
+      "price": 10.099,
+      "description": "Akustik performans: Beş tam-kapsamlı sürücü TV'nize, filmlerinize, oyunlarınıza ve daha fazlasına mükemmel sesi katmak için geniş sahneli ve net ses üretir",
+      "currency": "TRY",
+      "seller_id": "abh63gsq74i",
+      "in_stock": true,
+      "delivery_options": [
+        {
+          "ID": 1,
+          "CreatedAt": "2022-09-12T11:24:35.530813Z",
+          "UpdatedAt": "2022-09-12T11:24:35.530813Z",
+          "DeletedAt": null,
+          "name": "Yurtiçi Kargo",
+          "price": 9.99,
+          "currency": "TRY"
+        },
+        {
+          "ID": 2,
+          "CreatedAt": "2022-09-12T11:24:35.538769Z",
+          "UpdatedAt": "2022-09-12T11:24:35.538769Z",
+          "DeletedAt": null,
+          "name": "MNG KARGO",
+          "price": 8.11,
+          "currency": "TRY"
+        }
+      ]
+    },
+    {
+      "ID": 2,
+      "CreatedAt": "2022-09-12T11:29:04.445255Z",
+      "UpdatedAt": "2022-09-12T11:29:04.451598Z",
+      "DeletedAt": null,
+      "name": "JBL C100SI Kulakiçi Kulaklık, Beyaz",
+      "price": 125,
+      "description": "JBL C100 Kulak İçi Kulaklık, ergonomik kulaklık yapısı ile günlük kullanımlarda size uyum sağlar. Dahili mikrofonu sayesinde telefon görüşmelerinizi yapabilirsiniz. Kontrol tuşu ile şarkılarınız arasında geçişler yapabilirsiniz. 3.5mm jak ile tüm cihazlarda kullanabilirsiniz.",
+      "currency": "TRY",
+      "seller_id": "abcde123",
+      "in_stock": true,
+      "delivery_options": [
+        {
+          "ID": 1,
+          "CreatedAt": "2022-09-12T11:24:35.530813Z",
+          "UpdatedAt": "2022-09-12T11:24:35.530813Z",
+          "DeletedAt": null,
+          "name": "Yurtiçi Kargo",
+          "price": 9.99,
+          "currency": "TRY"
+        },
+        {
+          "ID": 2,
+          "CreatedAt": "2022-09-12T11:24:35.538769Z",
+          "UpdatedAt": "2022-09-12T11:24:35.538769Z",
+          "DeletedAt": null,
+          "name": "MNG KARGO",
+          "price": 8.11,
+          "currency": "TRY"
+        }
+      ]
+    },
+    {
+      "ID": 3,
+      "CreatedAt": "2022-09-12T11:30:37.669933Z",
+      "UpdatedAt": "2022-09-12T11:30:37.678625Z",
+      "DeletedAt": null,
+      "name": "Hypergear Duvar Şarjı 1Usb-2.1A, Beyaz, Hızlı şarj özellikli, Evrensel uyumlu",
+      "price": 20.27,
+      "description": "Kullanışlı ve şık tasarımı ile Hypergear 15101 Tekli Duvar Şarjı taşınabilir özelliğinin yanı sıra hızlı şarj özelliğine de sahiptir.",
+      "currency": "TRY",
+      "seller_id": "qwerty1234",
+      "in_stock": false,
+      "delivery_options": [
+        {
+          "ID": 2,
+          "CreatedAt": "2022-09-12T11:24:35.538769Z",
+          "UpdatedAt": "2022-09-12T11:24:35.538769Z",
+          "DeletedAt": null,
+          "name": "MNG KARGO",
+          "price": 8.11,
+          "currency": "TRY"
+        },
+        {
+          "ID": 3,
+          "CreatedAt": "2022-09-12T11:30:37.674188Z",
+          "UpdatedAt": "2022-09-12T11:30:37.674188Z",
+          "DeletedAt": null,
+          "name": "Aras Kargo",
+          "price": 19.99,
+          "currency": "TRY"
+        }
+      ]
+    },
+    {
+      "ID": 4,
+      "CreatedAt": "2022-09-12T11:31:50.963964Z",
+      "UpdatedAt": "2022-09-12T11:31:50.966797Z",
+      "DeletedAt": null,
+      "name": "Baseus Speed Mini Dual Seyahat Şarjı, 10.5W, Beyaz",
+      "price": 116.27,
+      "description": "Tek portlu 2A yüksek akım, daha hızlı şarj",
+      "currency": "TRY",
+      "seller_id": "qwerty1234",
+      "in_stock": true,
+      "delivery_options": [
+        {
+          "ID": 2,
+          "CreatedAt": "2022-09-12T11:24:35.538769Z",
+          "UpdatedAt": "2022-09-12T11:24:35.538769Z",
+          "DeletedAt": null,
+          "name": "MNG KARGO",
+          "price": 8.11,
+          "currency": "TRY"
+        }
+      ]
+    },
+    {
+      "ID": 5,
+      "CreatedAt": "2022-09-12T11:32:35.350954Z",
+      "UpdatedAt": "2022-09-12T11:32:35.353281Z",
+      "DeletedAt": null,
+      "name": "Anker PowerCore Select 10000 mAh Taşınabilir Hızlı Şarj Cihazı, PowerIQ 12W+10W Çift Çıkışlı, Siyah, A1223",
+      "price": 339.99,
+      "description": "Tek portlu 2A yüksek akım, daha hızlı şarj",
+      "currency": "TRY",
+      "seller_id": "1a2b3c4",
+      "in_stock": true,
+      "delivery_options": [
+        {
+          "ID": 2,
+          "CreatedAt": "2022-09-12T11:24:35.538769Z",
+          "UpdatedAt": "2022-09-12T11:24:35.538769Z",
+          "DeletedAt": null,
+          "name": "MNG KARGO",
+          "price": 8.11,
+          "currency": "TRY"
+        }
+      ]
+    }
+  ]
+#+end_src
+*** Query Parameters
+- ~Page:~ http://167.71.35.125:8080/product/?page=2
+- ~Order By:~ http://167.71.35.125:8080/product/?order_by=price
+** Get Product
+- ~path_to_url/product/<int:product_id>/~
+#+begin_src shell
+    curl --request GET http://167.71.35.125:8080/product/1/
+#+end_src
+#+begin_src json
+  {
+    "ID": 1,
+    "CreatedAt": "2022-09-12T11:24:35.524954Z",
+    "UpdatedAt": "2022-09-12T11:24:35.5403Z",
+    "DeletedAt": null,
+    "name": "Bose Soundbar 300 TV Ses Sistemi, Siyah",
+    "price": 10.099,
+    "description": "Akustik performans: Beş tam-kapsamlı sürücü TV'nize, filmlerinize, oyunlarınıza ve daha fazlasına mükemmel sesi katmak için geniş sahneli ve net ses üretir",
+    "currency": "TRY",
+    "seller_id": "abh63gsq74i",
+    "in_stock": true,
+    "delivery_options": [
+      {
+        "ID": 1,
+        "CreatedAt": "2022-09-12T11:24:35.530813Z",
+        "UpdatedAt": "2022-09-12T11:24:35.530813Z",
+        "DeletedAt": null,
+        "name": "Yurtiçi Kargo",
+        "price": 9.99,
+        "currency": "TRY"
+      },
+      {
+        "ID": 2,
+        "CreatedAt": "2022-09-12T11:24:35.538769Z",
+        "UpdatedAt": "2022-09-12T11:24:35.538769Z",
+        "DeletedAt": null,
+        "name": "MNG KARGO",
+        "price": 8.11,
+        "currency": "TRY"
+      }
+    ]
+  }
+#+end_src
+** Create Product
+- ~path_to_url/product/~
+- request body
+  #+begin_src json
+    {
+      "name": "Xiaomi 10000 mAh Pro Type-C Taşınabilir Şarj Cihazı",
+      "price": 339.99,
+      "description": "Yüksek hassasiyetli direnç, endüktans ve kapasitans bileşeneleri ve gelişmiş devre yongaları, hem taşınabilir şarj cihazları hem de cihazlar için güvenilir koruma sağlayarak aşırı şarj, aşırı deşarj, aşırı ısınma, kısa devre ve diğer arızaların üstesinden kolayca gelebilir. Günlük kullanım için çoklu korumalar ve gelişmiş güvenlik.",
+      "currency": "TRY",
+      "seller_id": "1a2b3c4",
+      "in_stock": true,
+      "delivery_options": [
+        {
+          "name": "Yurtiçi Kargo",
+          "price": 9.99,
+          "currency": "TRY"
+        },
+        {
+          "name": "MNG KARGO",
+          "price": 8.11,
+          "currency": "TRY"
+        },
+        {
+          "name": "Aras Kargo",
+          "price": 7.11,
+          "currency": "TRY"
+        }
+      ]
+    }
+  #+end_src
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+    --request POST \
+    --data '{"name":"Bose Soundbar 300 TV Ses Sistemi, Siyah","price":10.099,"description":"Akustik performans: Beş tam-kapsamlı sürücü TV'nize, filmlerinize, oyunlarınıza ve daha fazlasına mükemmel sesi katmak için geniş sahneli ve net ses üretir","currency":"TRY","seller_id":"abh63gsq74i","in_stock":true,"delivery_options":[{"name":"Yurtiçi Kargo","price":9.99,"currency":"TRY"},{"name":"MNG KARGO","price":8.11,"currency":"TRY"}]}' \
+    http://167.71.35.125:8080/product/
+#+end_src
+** Update Product
+- ~path_to_url/product/<int:product_id>/~
+- request body
+  #+begin_src json
+    {
+        "name": "Bose Soundbar 300 TV Ses Sistemi, Beyaz",
+        "delivery_options": [
+            {
+            "name": "Yurtiçi Kargo",
+            "price": 9.99,
+            "currency": "TRY"
+        },
+            {
+            "name": "MNG KARGO",
+            "price": 8.11,
+            "currency": "TRY"
+        },
+            {
+            "name": "Aras Kargo",
+            "price": 7.11,
+            "currency": "TRY"
+        }
+        ]
+    }
+  #+end_src
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+    --request PUT \
+    --data '{"name":"Bose Soundbar 300 TV Ses Sistemi, Beyaz","delivery_options":[{"name":"Yurtiçi Kargo","price":9.99,"currency":"TRY"},{"name":"MNG KARGO","price":8.11,"currency":"TRY"},{"name":"Aras Kargo","price":7.11,"currency":"TRY"}]}' \
+    http://167.71.35.125:8080/product/1/
+#+end_src
+* Project Folder Structure
+- ./main.go - Main file to run application
+- ./app/config/db.go - Database configuration file
+- ./app/handlers/product.go - Includes product handlers
+- ./app/models/product.go - Includes product database models
